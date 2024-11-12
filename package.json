@@ -1,0 +1,17 @@
+{
+  "name": "hotel-reservation-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "aerospike": "^5.13.2",
+    "body-parser": "^1.20.3",
+    "express": "^4.21.1"
+  }
+}
