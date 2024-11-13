@@ -1,18 +1,35 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HotelComponent } from './hotel/hotel.component';
+
+import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
+import { RoomsComponent } from './rooms/rooms.component';
+import { RoomDetailComponent } from './room-detail/room-detail.component';
+import { ReservationComponent } from './reservation/reservation.component';
+import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
+import { NavbarComponent } from './navbar/navbar.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    HotelComponent
+    HomeComponent,
+    RoomsComponent,
+    RoomDetailComponent,
+    ReservationComponent,
+    UserDashboardComponent,
+    NavbarComponent,
+    
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
   providers: [
     provideClientHydration()

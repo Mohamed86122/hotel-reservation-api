@@ -1,0 +1,18 @@
+<div class="container mt-4">
+  <h1 class="text-center">Welcome to Serin Hotels</h1>
+  <p class="text-center">Choose the perfect accommodation for your stay</p>
+
+  <div class="row">
+    <div class="col-md-4" *ngFor="let hotel of hotels">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h5 class="card-title">{{ hotel.name }}</h5>
+          <p class="card-text">
+            {{ hotel.address }}, {{ hotel.city }}, {{ hotel.country }}
+          </p>
+          <a [routerLink]="['/rooms', hotel.hotelId]" class="btn btn-primary">View Rooms</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
