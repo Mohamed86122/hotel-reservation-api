@@ -6,7 +6,9 @@ const router = express.Router();
 // Route POST pour créer un nouvel hôtel
 router.post('/', async (req, res) => {
   try {
-    const hotel = new Hotel(req.body.id, req.body.name, req.body.location, req.body.rating);
+    // Extraire les valeurs correctement depuis req.body
+    const { hotelId, name, address, city, country, rooms } = req.body;
+    const hotel = new Hotel(hotelId, name, address, city, country, rooms);
     await Hotel.save(hotel);
     res.status(201).send('Hotel saved');
   } catch (error) {

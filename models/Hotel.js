@@ -1,63 +1,107 @@
-// models/Hotel.js
 const Aerospike = require('aerospike');
+const { v4: uuidv4 } = require('uuid');
 
 module.exports = class Hotel {
-  constructor(id, name, location, rating) {
-    this.id = id;
+  constructor(hotelId, name, address, city, country, rooms = []) {
+    this.hotelId = hotelId || uuidv4(); // Assigner un UUID si non fourni
     this.name = name;
-    this.location = location;
-    this.rating = rating;
+    this.address = address;
+    this.city = city;
+    this.country = country;
+    this.rooms = rooms;
   }
 
-  // Méthode pour sauvegarder un hôtel
   static async save(hotel) {
+    console.log('Attempting to save hotel:', hotel);
+
+    if (!hotel.hotelId) {
+      throw new Error('hotelId is required and must be defined');
+    }
+
     const client = await Aerospike.connect();
-    const key = new Aerospike.Key('test', 'hotels', hotel.id);
-    const bins = { name: hotel.name, location: hotel.location, rating: hotel.rating };
-    await client.put(key, bins);
-    client.close();
+    const key = new Aerospike.Key('test', 'hotels', hotel.hotelId.toString());
+    const bins = {
+      name: hotel.name,
+      address: hotel.address,
+      city: hotel.city,
+      country: hotel.country,
+      rooms: hotel.rooms
+    };
+
+    try {
+      await client.put(key, bins);
+      console.log('Hotel saved successfully with ID:', hotel.hotelId);
+    } catch (error) {
+      console.error('Error saving hotel:', error);
+      throw error;
+    } finally {
+      client.close();
+    }
   }
 
-  // Méthode pour mettre à jour un hôtel
-  static async update(id, updatedFields) {
+  static async update(hotelId, updatedFields) {
     const client = await Aerospike.connect();
-    const key = new Aerospike.Key('test', 'hotels', id);
-    await client.put(key, updatedFields);
-    client.close();
+    const key = new Aerospike.Key('test', 'hotels', hotelId);
+
+    try {
+      await client.put(key, updatedFields);
+      console.log(`Hotel with ID ${hotelId} updated successfully.`);
+    } catch (error) {
+      console.error(`Error updating hotel with ID ${hotelId}:`, error);
+      throw error;
+    } finally {
+      client.close();
+    }
   }
 
-  // Méthode pour supprimer un hôtel
-  static async delete(id) {
+  static async delete(hotelId) {
     const client = await Aerospike.connect();
-    const key = new Aerospike.Key('test', 'hotels', id);
-    await client.remove(key);
-    client.close();
+    const key = new Aerospike.Key('test', 'hotels', hotelId);
+
+    try {
+      await client.remove(key);
+      console.log(`Hotel with ID ${hotelId} deleted successfully.`);
+    } catch (error) {
+      console.error(`Error deleting hotel with ID ${hotelId}:`, error);
+      throw error;
+    } finally {
+      client.close();
+    }
   }
 
-  // Méthode pour récupérer un hôtel par son ID
-  static async findById(id) {
+  static async findById(hotelId) {
     const client = await Aerospike.connect();
-    const key = new Aerospike.Key('test', 'hotels', id);
-    const record = await client.get(key);
-    client.close();
-    return record;
+    const key = new Aerospike.Key('test', 'hotels', hotelId);
+
+    try {
+      const record = await client.get(key);
+      console.log(`Hotel with ID ${hotelId} retrieved successfully.`);
+      return record.bins;
+    } catch (error) {
+      console.error(`Error retrieving hotel with ID ${hotelId}:`, error);
+      throw error;
+    } finally {
+      client.close();
+    }
   }
 
-  // Méthode pour récupérer tous les hôtels
   static async findAll() {
     const client = await Aerospike.connect();
     const hotels = [];
-    
     const scan = client.scan('test', 'hotels');
     const stream = scan.foreach();
 
-    stream.on('data', (record) => hotels.push(record));
-    stream.on('error', (error) => console.error('Scan error:', error));
-    stream.on('end', () => client.close());
-
-    return new Promise((resolve) => {
-      stream.on('end', () => resolve(hotels));
+    return new Promise((resolve, reject) => {
+      stream.on('data', (record) => hotels.push(record.bins));
+      stream.on('error', (error) => {
+        console.error('Error scanning hotels:', error);
+        reject(error);
+      });
+      stream.on('end', () => {
+        client.close();
+        console.log('All hotels retrieved successfully.');
+        resolve(hotels);
+      });
     });
   }
 };
-
