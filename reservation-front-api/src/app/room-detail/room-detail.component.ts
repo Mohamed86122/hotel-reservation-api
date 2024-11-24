@@ -17,10 +17,14 @@ export class RoomDetailComponent implements OnInit {
 
   ngOnInit(): void {
     const roomId = this.route.snapshot.paramMap.get('roomId');
-    if (roomId) {
+    if (roomId) 
+    {
       this.roomService.getRoomById(roomId).subscribe((data) => {
         this.room = data;
       });
     }
+   else {
+    console.error('Room ID is undefined');
+  }
   }
 }

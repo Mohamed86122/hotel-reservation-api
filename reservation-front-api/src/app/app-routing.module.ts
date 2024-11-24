@@ -9,7 +9,7 @@ import { UserDashboardComponent } from './user-dashboard/user-dashboard.componen
 const routes: Routes = [
   
   { path: '', component: HomeComponent },
-  { path: 'rooms/:hotelId', component: RoomsComponent },
+  { path: 'rooms/:roomId', component: RoomsComponent },
   { path: 'room-detail/:roomId', component: RoomDetailComponent },
   { path: 'reservation/:roomId', component: ReservationComponent },
   { path: 'user-dashboard', component: UserDashboardComponent },

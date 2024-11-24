@@ -1,21 +1,17 @@
-<div class="container mt-4">
-  <h3>Your Reservation</h3>
+<form (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="checkIn">Check-in Date</label>
+    <input type="date" id="checkIn" class="form-control" [(ngModel)]="reservation.checkIn" name="checkIn" required (change)="calculateTotalPrice()">
+  </div>
 
-  <form (ngSubmit)="onSubmit()">
-    <div class="form-group">
-      <label for="checkIn">Check-in Date</label>
-      <input type="date" id="checkIn" class="form-control" [(ngModel)]="reservation.checkIn" name="checkIn" required>
-    </div>
+  <div class="form-group">
+    <label for="checkOut">Check-out Date</label>
+    <input type="date" id="checkOut" class="form-control" [(ngModel)]="reservation.checkOut" name="checkOut" required (change)="calculateTotalPrice()">
+  </div>
 
-    <div class="form-group">
-      <label for="checkOut">Check-out Date</label>
-      <input type="date" id="checkOut" class="form-control" [(ngModel)]="reservation.checkOut" name="checkOut" required>
-    </div>
+  <div class="form-group">
+    <label>Total Price: {{ reservation.totalPrice || 0 }} MAD</label>
+  </div>
 
-    <div class="form-group">
-      <label>Total Price: {{ reservation.totalPrice }} MAD</label>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Confirm Reservation</button>
-  </form>
-</div>
+  <button type="submit" class="btn btn-primary">Confirm Reservation</button>
+</form>
