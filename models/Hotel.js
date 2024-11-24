@@ -2,12 +2,13 @@ const Aerospike = require('aerospike');
 const { v4: uuidv4 } = require('uuid');
 
 module.exports = class Hotel {
-  constructor(hotelId, name, address, city, country, rooms = []) {
+  constructor(hotelId, name, address, city, country,image, rooms = []) {
     this.hotelId = hotelId || uuidv4(); // Assigner un UUID si non fourni
     this.name = name;
     this.address = address;
     this.city = city;
     this.country = country;
+    this.image = image;
     this.rooms = rooms;
   }
 
@@ -25,6 +26,7 @@ module.exports = class Hotel {
       address: hotel.address,
       city: hotel.city,
       country: hotel.country,
+      image: hotel.image,
       rooms: hotel.rooms
     };
 

@@ -6,7 +6,7 @@ const router = express.Router();
 // Créer une nouvelle chambre
 router.post('/', async (req, res) => {
   try {
-    const room = new Room(req.body.roomId, req.body.roomNumber, req.body.type, req.body.price, req.body.isAvailable, req.body.hotelId);
+    const room = new Room(req.body.roomId, req.body.roomNumber, req.body.type, req.body.price, req.body.isAvailable,req.body.image, req.body.hotelId);
     await Room.save(room);
     res.status(201).send('Room created');
   } catch (error) {

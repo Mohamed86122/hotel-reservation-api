@@ -14,6 +14,10 @@ export class AuthService {
   getUserId(): string | null {
     return this.userId;
   }
+  isAdmin(): boolean 
+  {
+    return this.userId === 'admin';
+  }
 
   logout(): void {
     this.userId = null;

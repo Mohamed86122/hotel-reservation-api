@@ -7,11 +7,15 @@ import { ReservationComponent } from './reservation/reservation.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 
 const routes: Routes = [
+  
   { path: '', component: HomeComponent },
   { path: 'rooms/:hotelId', component: RoomsComponent },
   { path: 'room-detail/:roomId', component: RoomDetailComponent },
   { path: 'reservation/:roomId', component: ReservationComponent },
-  { path: 'user-dashboard', component: UserDashboardComponent }
+  { path: 'user-dashboard', component: UserDashboardComponent },
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+  { path: '**', redirectTo: '' }, // Redirection pour les URL non reconnues
+
 ];
 
 @NgModule({

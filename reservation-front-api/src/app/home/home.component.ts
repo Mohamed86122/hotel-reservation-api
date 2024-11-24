@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit {
     this.roomService.getRooms().subscribe((data) => {
       this.rooms = data;
     });
-    this.hotelService.getHotelById("eb09814b-c92d-458d-aea4-6fd497e2d725").subscribe((data) => {
+    this.hotelService.getHotelById("781ac1b4-c57b-4cfd-b0af-e8d85c9c9eaf").subscribe((data) => {
       this.hotel = data;
     });
   }

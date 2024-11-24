@@ -12,6 +12,7 @@ import { RoomDetailComponent } from './room-detail/room-detail.component';
 import { ReservationComponent } from './reservation/reservation.component';
 import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { WordCountPipe } from './pipes/word-count.pipe';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     ReservationComponent,
     UserDashboardComponent,
     NavbarComponent,
+    WordCountPipe,
     
   ],
   imports: [

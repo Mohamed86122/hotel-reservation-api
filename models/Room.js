@@ -2,12 +2,13 @@
 const Aerospike = require('aerospike');
 
 module.exports = class Room {
-  constructor(roomId, roomNumber, type, price, isAvailable, hotelId) {
+  constructor(roomId, roomNumber, type, price, isAvailable,image=null, hotelId) {
     this.roomId = roomId;
     this.roomNumber = roomNumber;
     this.type = type;
     this.price = price;
     this.isAvailable = isAvailable;
+    this.image = image;
     this.hotelId = hotelId;
   }
 
@@ -19,6 +20,7 @@ module.exports = class Room {
       type: room.type,
       price: room.price,
       isAvailable: room.isAvailable,
+      image: room.image,
       hotelId: room.hotelId
     };
     try {

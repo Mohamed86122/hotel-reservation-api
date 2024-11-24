@@ -7,8 +7,8 @@ const router = express.Router();
 router.post('/', async (req, res) => {
   try {
     // Extraire les valeurs correctement depuis req.body
-    const { hotelId, name, address, city, country, rooms } = req.body;
-    const hotel = new Hotel(hotelId, name, address, city, country, rooms);
+    const { hotelId, name, address, city, country,image, rooms } = req.body;
+    const hotel = new Hotel(hotelId, name, address, city, country,image, rooms);
     await Hotel.save(hotel);
     res.status(201).send('Hotel saved');
   } catch (error) {
