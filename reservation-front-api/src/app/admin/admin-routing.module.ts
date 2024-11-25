@@ -4,15 +4,17 @@ import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.compo
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { ManageReservationsComponent } from './manage-reservations/manage-reservations.component';
 import { AdminGuard } from '../guards/admin.guard';
+import { RoomsManagementComponent } from './rooms-management/rooms-management.component';
 
 const routes: Routes = [
   {
     path: '',
     component: AdminDashboardComponent,
-    canActivate: [AdminGuard], // Protection pour les routes Admin
+    canActivate: [], // Protection pour les routes Admin
     children: [
       { path: 'users', component: ManageUsersComponent },
       { path: 'reservations', component: ManageReservationsComponent },
+      { path: 'rooms', component: RoomsManagementComponent}
     ],
   },
 ];

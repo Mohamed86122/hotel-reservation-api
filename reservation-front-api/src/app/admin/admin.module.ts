@@ -5,12 +5,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 import { ManageUsersComponent } from './manage-users/manage-users.component';
 import { ManageReservationsComponent } from './manage-reservations/manage-reservations.component';
+import { RoomsManagementComponent } from './rooms-management/rooms-management.component';
 
 @NgModule({
   declarations: [
     AdminDashboardComponent,
     ManageUsersComponent,
-    ManageReservationsComponent
+    ManageReservationsComponent,
+    RoomsManagementComponent
   ],
   imports: [
     CommonModule,
