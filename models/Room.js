@@ -16,6 +16,7 @@ module.exports = class Room {
     const client = await Aerospike.connect();
     const key = new Aerospike.Key('test', 'rooms', room.roomId);
     const bins = {
+      roomId: room.roomId,
       roomNumber: room.roomNumber,
       type: room.type,
       price: room.price,
@@ -29,7 +30,31 @@ module.exports = class Room {
       client.close();
     }
   }
+  static async findByRoomNumber(roomNumber) {
+    const client = await Aerospike.connect();
+    const query = client.query('test', 'rooms');
+    query.where(Aerospike.filter.equal('roomNumber', roomNumber));
 
+    return new Promise((resolve, reject) => {
+      const rooms = [];
+      const stream = query.foreach();
+      stream.on('data', record => {
+        rooms.push(record.bins);
+      });
+      stream.on('end', () => {
+        client.close();
+        if (rooms.length > 0) {
+          resolve(rooms[0]);
+        } else {
+          resolve(null);
+        }
+      });
+      stream.on('error', error => {
+        client.close();
+        reject(error);
+      });
+    });
+    }
   static async update(roomId, updatedFields) {
     const client = await Aerospike.connect();
     const key = new Aerospike.Key('test', 'rooms', roomId);

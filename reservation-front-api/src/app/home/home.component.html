@@ -2,16 +2,24 @@
   <div *ngIf="hotel">
     <h1 class="text-center">Welcome to {{ hotel.name }}</h1>
   </div>
-
-  <div class="row" *ngIf="rooms && rooms.length > 0; else noRooms">
+  <br>
+  <div class="row" *ngIf="rooms && rooms.length > 0; else noRooms" >
     <div class="col-md-4" *ngFor="let room of rooms">
-      <div class="card mb-4">
-        <div class="card-body">
-          <h5 class="card-title">{{ room.roomNumber }}</h5>
+      <div class="card mb-4" >
+        <div class="card-body" id="carte">
+          <h5 class="card-title">La chambre numéro : {{ room.roomNumber }}</h5>
           <p class="card-text">
-            Type: {{ room.type }}, Prix: {{ room.price }} €, Disponibilité: {{ room.isAvailable ? 'Disponible' : 'Non disponible' }}
+            Type de chambre: {{ room.type }}
           </p>
-          <a [routerLink]="['/rooms', room.roomId]" class="btn btn-primary">Voir la Chambre</a><br/><br/>
+          <p class="card-text">
+            Prix: {{ room.price }} MAD
+          </p>
+          <p class="card-text">
+            Disponibilité: {{ room.isAvailable ? 'Disponible' : 'Non disponible' }}
+          </p>
+          <!-- home.component.html -->
+           <!-- home.component.html -->
+          <a [routerLink]="['/room-detail', room.roomId]" class="btn btn-primary">Voir la Chambre</a><br/><br/>
           <a [routerLink]="['/reservation', room.roomId]" class="btn btn-primary">Reserver</a>
         </div>
       </div>

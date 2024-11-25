@@ -10,9 +10,9 @@ import { HomeComponent } from './home/home.component';
 import { RoomsComponent } from './rooms/rooms.component';
 import { RoomDetailComponent } from './room-detail/room-detail.component';
 import { ReservationComponent } from './reservation/reservation.component';
-import { UserDashboardComponent } from './user-dashboard/user-dashboard.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { WordCountPipe } from './pipes/word-count.pipe';
+import { ReservationListComponent } from './reservation/reservation-list/reservation-list.component';
 
 
 @NgModule({
@@ -22,9 +22,10 @@ import { WordCountPipe } from './pipes/word-count.pipe';
     RoomsComponent,
     RoomDetailComponent,
     ReservationComponent,
-    UserDashboardComponent,
     NavbarComponent,
     WordCountPipe,
+    ReservationListComponent,
+    
     
   ],
   imports: [

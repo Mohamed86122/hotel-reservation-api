@@ -4,7 +4,7 @@
   <p>Price: {{ room.price }} per night</p>
   <p>Status: {{ room.isAvailable ? 'Available' : 'Not Available' }}</p>
   <button *ngIf="room.isAvailable" [routerLink]="['/reservation', room.roomId]" class="btn btn-success">
-    Book Room
+    Réserver une chambre
   </button>
   <button *ngIf="!room.isAvailable" class="btn btn-secondary" disabled>Not Available</button>
 </div>

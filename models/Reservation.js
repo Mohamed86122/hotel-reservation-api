@@ -2,13 +2,14 @@
 const Aerospike = require('aerospike');
 
 module.exports = class Reservation {
-  constructor(reservationId, roomId, userId, checkIn, checkOut, totalPrice, isPaid, isCancelled, dateCreated) {
+  constructor(reservationId, roomId,nomComplet,mail,checkIn,checkOut,totalPrice, isPaid, isCancelled, dateCreated) {
     this.reservationId = reservationId;
     this.roomId = roomId;
-    this.userId = userId;
+    this.totalPrice = totalPrice;
+    this.nomComplet = nomComplet; 
+    this.mail = mail;
     this.checkIn = checkIn;
     this.checkOut = checkOut;
-    this.totalPrice = totalPrice;
     this.isPaid = isPaid;
     this.isCancelled = isCancelled;
     this.dateCreated = dateCreated;
@@ -19,10 +20,11 @@ module.exports = class Reservation {
     const key = new Aerospike.Key('test', 'reservations', reservation.reservationId);
     const bins = {
       roomId: reservation.roomId,
-      userId: reservation.userId,
-      checkIn: reservation.checkIn,
-      checkOut: reservation.checkOut,
+      nomComplet: reservation.nomComplet,
+      mail: reservation.mail,
       totalPrice: reservation.totalPrice,
+      checkIn : reservation.checkIn,
+      checkOut : reservation.checkOut,
       isPaid: reservation.isPaid,
       isCancelled: reservation.isCancelled,
       dateCreated: reservation.dateCreated

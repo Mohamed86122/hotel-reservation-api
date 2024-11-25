@@ -13,7 +13,21 @@ router.post('/', async (req, res) => {
     res.status(500).send('Error creating room: ' + error.message);
   }
 });
+// Route pour récupérer une chambre par roomNumber
+// router.get('/:roomNumber', async (req, res) => {
+//   try {
+//     const room = await Room.findByRoomNumber(req.params.roomNumber);
+    
+//     if (!room) {
+//       return res.status(404).send('Room not found');
+//     }
+//     res.send(room);
+//   } catch (error) {
+//     console.error('Error fetching room by number:', error);
+//     res.status(500).send('Internal Server Error');
+//   }
 
+// });
 // Récupérer toutes les chambres
 router.get('/', async (req, res) => {
   try {
@@ -25,9 +39,11 @@ router.get('/', async (req, res) => {
 });
 
 // Récupérer une chambre par ID
-router.get('/:id', async (req, res) => {
+router.get('/:roomId', async (req, res) => {
   try {
-    const room = await Room.findById(req.params.id);
+    console.log(req.params.roomId);
+    const room = await Room.findById(req.params.roomId);
+
     if (room) {
       res.status(200).json(room);
     } else {

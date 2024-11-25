@@ -1,17 +1,47 @@
 <form (ngSubmit)="onSubmit()">
+  <!-- Room ID (Readonly) -->
+  <div class="form-group">
+    <label for="roomId">Room ID</label>
+    <input type="text" id="roomId" class="form-control" [(ngModel)]="reservation.roomId" name="roomId" readonly>
+  </div>
+
+  <!-- Nom Complet -->
+  <div class="form-group">
+    <label for="nomComplet">Nom Complet</label>
+    <input type="text" id="nomComplet" class="form-control" [(ngModel)]="reservation.nomComplet" name="nomComplet" required>
+  </div>
+
+  <!-- Email -->
+  <div class="form-group">
+    <label for="mail">Email</label>
+    <input type="email" id="mail" class="form-control" [(ngModel)]="reservation.mail" name="mail" required>
+  </div>
+
+  <!-- Check-in Date -->
   <div class="form-group">
     <label for="checkIn">Check-in Date</label>
     <input type="date" id="checkIn" class="form-control" [(ngModel)]="reservation.checkIn" name="checkIn" required (change)="calculateTotalPrice()">
   </div>
 
+  <!-- Check-out Date -->
   <div class="form-group">
     <label for="checkOut">Check-out Date</label>
     <input type="date" id="checkOut" class="form-control" [(ngModel)]="reservation.checkOut" name="checkOut" required (change)="calculateTotalPrice()">
   </div>
 
+  <!-- Total Price (Readonly) -->
   <div class="form-group">
-    <label>Total Price: {{ reservation.totalPrice || 0 }} MAD</label>
+    <label>Total Price: {{ room.price || 0 }} MAD</label>
   </div>
 
-  <button type="submit" class="btn btn-primary">Confirm Reservation</button>
+  <!-- Is Paid -->
+  <!-- <div class="form-group">
+    <label for="isPaid">Paid</label>
+    <input type="checkbox" id="isPaid" class="form-control" [(ngModel)]="reservation.isPaid" name="isPaid">
+  </div> -->
+
+  <!-- Submit Button -->
+  <button type="submit" class="btn btn-primary">Confirmer la réservation</button><br><br>
+  <a [routerLink]="['/']" class="btn btn-secondary">Retour</a><br>
+  <a [routerLink]="['/reservation-list']" class="btn btn-danger">Vers la liste des réservations</a>
 </form>

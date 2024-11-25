@@ -9,13 +9,16 @@ router.post('/', async (req, res) => {
     const reservation = new Reservation(
       req.body.reservationId,
       req.body.roomId,
-      req.body.userId,
-      req.body.checkIn,
+      req.body.totalPrice,
+      req.body.nomComplet,
+      req.body.mail,
       req.body.checkOut,
       req.body.totalPrice,
       req.body.isPaid,
       req.body.isCancelled,
       req.body.dateCreated
+
+
     );
     await Reservation.save(reservation);
     res.status(201).send('Reservation created');

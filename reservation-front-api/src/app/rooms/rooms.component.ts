@@ -13,6 +13,7 @@ export class RoomsComponent implements OnInit {
 
   ngOnInit(): void {
     this.roomService.getRooms().subscribe((data) => {
+      console.log('Rooms:', data); // Ceci permet de voir si `roomId` est défini.
       this.rooms = data;
     });
   }

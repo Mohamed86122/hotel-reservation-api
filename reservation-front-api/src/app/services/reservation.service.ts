@@ -8,7 +8,7 @@ import { Reservation } from '../models/reservation.model';
   providedIn: 'root'
 })
 export class ReservationService {
-  private apiUrl = '/api/reservations'; // Remplacez par votre URL d'API
+  private apiUrl = 'http://localhost:5000/api/reservations'; // Remplacez par votre URL d'API
 
   constructor(private http: HttpClient) {}
 

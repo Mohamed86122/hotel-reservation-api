@@ -1,0 +1,32 @@
+<div class="table-container">
+<table class="table">
+  <thead>
+    <tr>
+      <th>Reservation ID</th>
+      <th>Room ID</th>
+      <th>Nom Complet</th>
+      <th>Email</th>
+      <th>Check-in Date</th>
+      <th>Check-out Date</th>
+      <th>Total Price</th>
+      <th>Paid</th>
+      <th>Cancelled</th>
+      <th>Date Created</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let reservation of Reservations">
+      <td>{{ reservation.reservationId }}</td>
+      <td>{{ reservation.roomId }}</td>
+      <td>{{ reservation.nomComplet }}</td>
+      <td>{{ reservation.mail }}</td>
+      <td>{{ reservation.checkIn | date }}</td>
+      <td>{{ reservation.checkOut | date }}</td>
+      <td>{{ reservation.totalPrice }}</td>
+      <td>{{ reservation.isPaid ? 'Yes' : 'No' }}</td>
+      <td>{{ reservation.isCancelled ? 'Yes' : 'No' }}</td>
+      <td>{{ reservation.dateCreated | date }}</td>
+    </tr>
+  </tbody>
+</table>
+</div>

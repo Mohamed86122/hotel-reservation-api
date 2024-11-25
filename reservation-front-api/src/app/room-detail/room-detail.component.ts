@@ -1,14 +1,16 @@
+// room-detail.component.ts
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Room } from '../models/room.model';
 import { RoomService } from '../services/room.service';
+import { Room } from '../models/room.model';
 
 @Component({
   selector: 'app-room-detail',
   templateUrl: './room-detail.component.html',
+  styleUrls: ['./room-detail.component.css']
 })
 export class RoomDetailComponent implements OnInit {
-  room: Room | undefined;
+  room: Room | null = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -16,15 +18,15 @@ export class RoomDetailComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    const roomId = this.route.snapshot.paramMap.get('roomId');
-    if (roomId) 
-    {
-      this.roomService.getRoomById(roomId).subscribe((data) => {
-        this.room = data;
+    
+    const roomNumber = this.route.snapshot.paramMap.get('roomId');
+
+    if (roomNumber) {
+      
+      this.roomService.getRoomById(roomNumber).subscribe(room => {
+        console.log(roomNumber);
+        this.room = room;
       });
     }
-   else {
-    console.error('Room ID is undefined');
-  }
   }
 }

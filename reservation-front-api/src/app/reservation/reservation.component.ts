@@ -10,23 +10,37 @@ import { RoomService } from '../services/room.service';
   styleUrls: ['./reservation.component.css']
 })
 export class ReservationComponent implements OnInit {
-  reservation: Reservation = new Reservation(0, 0, 0, new Date(), new Date(), 0, false, false, new Date());
-
+  reservation: Reservation = {
+    reservationId: 0, // Ce champ sera ignoré, il sera généré par le backend
+    roomId: "",
+    nomComplet: "",
+    mail: "",
+    checkIn: new Date(),
+    checkOut: new Date(),
+    totalPrice: 0,
+    isPaid: false,
+    isCancelled: false,
+    dateCreated: new Date(),
+  };
+  room: any;
   constructor(
     private reservationService: ReservationService,
-    private roomService: RoomService,
+    private roomService : RoomService,
     private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    // Récupérer l'ID de la chambre depuis l'URL
     const roomId = this.route.snapshot.paramMap.get('roomId');
     if (roomId) {
-      this.reservation.roomId = parseInt(roomId);
-      this.roomService.getRoomById(roomId).subscribe((room) => {
-        this.reservation.totalPrice = room.price; // Get price from room
+      this.roomService.getRoomById(roomId).subscribe(room => {
+        this.reservation.roomId = room.roomId;
+        console.log('Room:', room);
+        this.room = room;
       });
-    } else {
-      console.error('Room ID is undefined in reservation');
+
+      
+      // this.reservation.roomId =roomId;
     }
   }
 
@@ -34,10 +48,10 @@ export class ReservationComponent implements OnInit {
     const checkInDate = new Date(this.reservation.checkIn);
     const checkOutDate = new Date(this.reservation.checkOut);
 
-    if (checkInDate && checkOutDate && this.reservation.totalPrice) {
+    if (checkInDate && checkOutDate) {
       const diffTime = Math.abs(checkOutDate.getTime() - checkInDate.getTime());
       const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-      this.reservation.totalPrice = diffDays * this.reservation.totalPrice;
+      this.reservation.totalPrice = diffDays * 100; // Exemple : Prix fixe de 100 MAD/nuit
     }
   }
 
@@ -46,9 +60,11 @@ export class ReservationComponent implements OnInit {
     this.reservationService.createReservation(this.reservation).subscribe({
       next: (data) => {
         console.log('Reservation created:', data);
+        alert('Your reservation has been confirmed!');
       },
       error: (error) => {
         console.error('Error creating reservation:', error);
+        alert('An error occurred while creating your reservation. Please try again.');
       }
     });
   }
